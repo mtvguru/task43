@@ -76,8 +76,7 @@ window.addEventListener('load',async function()
 
 	console.log("waitin for 3 secs..");
 	$("cw_m").innerHTML = "Connecting.. Please wait."
-	setTimeout(async () => { basetrip(); }, 3000);
-	basics();
+	setTimeout(async () => { basetrip();basics(); }, 3000);
 }, false);
 
 function $(_) {return document.getElementById(_);}
@@ -86,10 +85,32 @@ async function basetrip()
 {
 //if(window.ethereum&&Number(window.ethereum.chainId)==CHAINID){web3 = new Web3(web3.currentProvider);if(!(window.ethereum.selectedAddress==null)){cw()}}
 
-	if(!(window.ethereum)){$("cw_m").innerHTML = "Wallet wasn't detected!";console.log("Wallet wasn't detected!");provider = new ethers.providers.JsonRpcProvider(RPC_URL);;return}
-	else if(!Number(window.ethereum.chainId)==CHAINID){$("cw_m").innerHTML = "Wrong network! Please Switch to "+CHAINID;provider = new ethers.providers.Web3Provider(window.ethereum);return}
-	else if(//typeOf window.ethereum == Object &&Number(window.ethereum.chainId)
-		Number(window.ethereum.chainId)==CHAINID)
+	if(!(window.ethereum))
+	{
+		$("cw_m").innerHTML = "Wallet wasn't detected!"
+		console.log("Wallet wasn't detected!")
+		provider = new ethers.providers.JsonRpcProvider(RPC_URL)
+		return
+	}
+	else if(!Number(window.ethereum.chainId)==CHAINID)
+	{
+		window.ethereum.request({
+    	method: "wallet_addEthereumChain",
+    	params: [{
+        	chainId: "0xf49d",
+        	rpcUrls: ["https://rpc.mtv.ac"],
+        	chainName: "MultiVAC",
+        	nativeCurrency: {
+            	name: "MTV",
+            	symbol: "MTV",
+            	decimals: 18
+        	},
+        	blockExplorerUrls: ["https://e.mtv.ac","https://scan.mtv.guru"]
+    		}]
+		});
+		basetrip()
+	}
+	else if(Number(window.ethereum.chainId)==CHAINID)
 	{
 		console.log("Recognized Ethereum Chain:", window.ethereum.chainId,CHAINID);
 		provider = new ethers.providers.Web3Provider(window.ethereum)
@@ -185,6 +206,7 @@ async function cw2()
 
 async function basics()
 {
+	console.log("Basics..")
 	G = new ethers.Contract("0xf5c606B123327Cd3149b4C43A2d73F9D3Ab5028E",inter,provider)
 	ap = await G.getPropositions()
 	for(i=ap.length-1;i>=0;i--)

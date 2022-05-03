@@ -61,8 +61,7 @@ window.addEventListener('load',async function()
 
 	console.log("waitin for 3 secs..");
 	$("cw_m").innerHTML = "Connecting.. Please wait."
-	setTimeout(async () => { basetrip(); }, 3000);
-	basics();
+	setTimeout(async () => { basetrip();basics(); }, 3000);
 }, false);
 
 function $(_) {return document.getElementById(_);}
@@ -94,7 +93,7 @@ async function basetrip()
             	symbol: "MTV",
             	decimals: 18
         	},
-        	blockExplorerUrls: ["https://scout.ech.network","https://explorer.ech.network","https://scan.ech.guru"]
+        	blockExplorerUrls: ["https://e.mtv.ac","https://scan.mtv.guru"]
     		}]
 		});
 	}
@@ -172,6 +171,7 @@ async function cw2()
 
 async function basics()
 {
+	console.log("Basics..")
 	G = new ethers.Contract("",inter,provider)
 	pid = new URLSearchParams(window.location.search).get("pid")
 	ap = G.getProposal(pid)
