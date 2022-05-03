@@ -196,7 +196,7 @@ async function basics()
 
 async function propose()
 {
-	G = new ethers.Contract("0x5e6f527b3C68ec313369D0613Ef799ac680F83C6",inter,provider)
+	G = new ethers.Contract("0x5e6f527b3C68ec313369D0613Ef799ac680F83C6",inter,signer)
 	await G.create(($("cp_dl").value/1e3).toFixed(), $("cp_desc").value, $("cp_op").value.split("\n"))
 }
 

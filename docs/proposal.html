@@ -185,6 +185,12 @@ async function basics()
 		$("options").append(p)
 	}
 }
+
+async function vote(cid)
+{
+	G = new ethers.Contract("0x5e6f527b3C68ec313369D0613Ef799ac680F83C6",inter,signer)
+	await G.vote(cid)
+}
 inter =
 [
 	{
