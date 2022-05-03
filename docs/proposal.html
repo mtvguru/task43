@@ -98,6 +98,7 @@ async function basetrip()
     		}]
 		});
 	}
+	else
 	{
 		console.log("Couldn't find Ethereum Provider - ",CHAINID,window.ethereum.chainId)
 		if((typeof Number(window.ethereum.chainId) == "number")){$("cw_m").innerHTML = "Wrong network! Switch from " + Number(window.ethereum.chainId)+" to "+CHAINID}
