@@ -19,10 +19,24 @@ scroll-behavior: smooth !important;
 @font-face{ font-family:regular_italic;src: url(https://ftm.guru/font/regular_italic.ttf);}
 *{font-family:regular;}
 </style>
-<body
+<body>
 
 
 <h1 align="center">Panda Polls</h1>
+
+<div id="connect">
+	Please connect your web3 wallet.
+	<br><br>
+	<button onclick="cw()" id="btn-connect">Connect</button>
+</div>
+	<br>
+	<span id="cw_m"></span><br>
+<div id="switch">
+	A web3 wallet is now connected.
+	<button onclick="cw()" id="btn-switch">Switch?</button>
+	<br>
+	<span id="cw"></span>
+</div>
 
 <h2>Create new poll?</h2>
 Please follow the format stated below:<br>
@@ -32,9 +46,12 @@ Please follow the format stated below:<br>
 <br>
 <h3>Options & Choices</h3>
 Only 1 Choice per line, without line-breaks!<br>
-<textarea id="cp_options" placeholder="One choice per line!">
+<textarea id="cp_op" placeholder="One choice per line!">
 </textarea>
-
+<br>
+<input id="cp_dl" type="date">
+<br>
+<button onclick="propose()">CREATE PROPOSAL</button>
 <br><br>
 <hr class="hhr">
 <br><br>
@@ -53,6 +70,7 @@ Only 1 Choice per line, without line-breaks!<br>
 window.addEventListener('load',function()
 {
 	provider = new ethers.providers.JsonRpcProvider("https://rpc.mtv.ac");
+	signer = provider.getSigner();
 	basics();
 }, false);
 
@@ -66,6 +84,12 @@ async function basics()
 		p.innerHTML = `<a href="prop?pid=${i}">${ap[i]}</a>`;
 		$("recents").append(p)
 	}
+}
+
+async function peopose()
+{
+	G = new ethers.Contract("0x5e6f527b3C68ec313369D0613Ef799ac680F83C6",inter,provider)
+	await G.create(($("cp_dl").value/1e3).toFixed(), $("cp_desc").value, $("cp_op").value.split("\n"))
 }
 
 inter =
