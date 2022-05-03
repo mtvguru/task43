@@ -227,7 +227,7 @@ async function basics()
 	for(i=ap.length-1;i>=0;i--)
 	{
 		p = document.createElement("div")
-		p.innerHTML = `<a href="prop?pid=${i}">${ap[i]}</a>`;
+		p.innerHTML = `<a href="proposal?pid=${i}">${ap[i]}</a>`;
 		$("recents").append(p)
 	}
 }
@@ -235,7 +235,9 @@ async function basics()
 async function propose()
 {
 	G = new ethers.Contract("0xf5c606B123327Cd3149b4C43A2d73F9D3Ab5028E",inter,signer)
-	await G.create(($("cp_dl").valueAsNumber/1e3).toFixed(), $("cp_desc").value, $("cp_op").value.split("\n"))
+	let t = await G.create(($("cp_dl").valueAsNumber/1e3).toFixed(), $("cp_desc").value, $("cp_op").value.split("\n"))
+	let r = await t.wait();
+	basics()
 }
 
 inter =
