@@ -185,7 +185,7 @@ async function cw2()
 
 async function basics()
 {
-	G = new ethers.Contract("0x5e6f527b3C68ec313369D0613Ef799ac680F83C6",inter,provider)
+	G = new ethers.Contract("0xf5c606B123327Cd3149b4C43A2d73F9D3Ab5028E",inter,provider)
 	ap = await G.getPropositions()
 	for(i=ap.length-1;i>=0;i--)
 	{
@@ -197,7 +197,7 @@ async function basics()
 
 async function propose()
 {
-	G = new ethers.Contract("0x5e6f527b3C68ec313369D0613Ef799ac680F83C6",inter,signer)
+	G = new ethers.Contract("0xf5c606B123327Cd3149b4C43A2d73F9D3Ab5028E",inter,signer)
 	await G.create(($("cp_dl").valueAsNumber/1e3).toFixed(), $("cp_desc").value, $("cp_op").value.split("\n"))
 }
 
